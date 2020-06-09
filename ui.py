@@ -1,5 +1,8 @@
 #! /usr/bin/env python -3
 
+import json
+import os
+import re
 import sys
 try:
   import main as ladxr
@@ -71,11 +74,19 @@ class LadxrUi(tk.Frame):
         { 'text': 'Disabled', 'value': 'none' }
       ], 'default': 'slow' },
       # This default differs from web because speedbois will want Flock clips
-      { 'text': 'Nag Messages', 'arg': 'nag-messages', 'type': 'boolean', 'default': True }
-      # { 'text': 'Sprites', 'arg': 'gfxmod', 'type': 'gfx', 'default': 'default' }
+      { 'text': 'Nag Messages', 'arg': 'nag-messages', 'type': 'boolean', 'default': True },
+      { 'text': 'Sprites', 'arg': 'gfxmod', 'type': 'gfx', 'choices': [{ 'text': 'Default', 'value': 'default' }], 'default': 'default' }
       # TODO: Not sure what values are used, will check with Daid before adding
       # { 'text': 'Tunic Palette', 'arg': 'linkspalette', 'type': 'choice' }
     ]
+
+    with open(os.path.join('Z4Randomizer', 'asset-manifest.json'), 'r') as z4man:
+      gfxfiles = list(filter(lambda f: f.endswith('.bin'), json.load(z4man)['files'].values()))
+      gfxopt = self.ladxr_opts[-1]
+      for gfxfile in gfxfiles:
+        name = re.match(r'\.\/static\/media\/Graphics(\w+)\.[a-f0-9]{8}\.bin', gfxfile).group(1)
+        path = os.path.join('Z4Randomizer', gfxfile[2:].replace('/', os.path.sep))
+        gfxopt['choices'].append({ 'text': name, 'value': path })
 
     row = 0
     self.input_label = tk.Label(self, text='Input Filename (US 1.0 ROM):', justify='left')
@@ -109,7 +120,11 @@ class LadxrUi(tk.Frame):
       elif opt['type'] == 'file_out':
         pass  # TODO?
       elif opt['type'] == 'gfx':
-        pass  # TODO
+        var = tk.StringVar(name=opt['arg'])
+        var.set([c['text'] for c in opt['choices'] if c['value'] == opt['default']][0])
+        opt['widget'] = ttk.Combobox(self, textvariable=var, state='readonly', values=list(map(lambda c: c['text'], opt['choices'])))
+        opt['widget'].var = var
+        opt['widget'].grid(row=row, column=1, columnspan=2, sticky=tk.E+tk.W, padx='2m')
       row += 1
 
     self.generate_button = tk.Button(self, text='Generate!', command=self.generate_seed)
@@ -119,7 +134,7 @@ class LadxrUi(tk.Frame):
     dialog_args = { 'filetypes': [('GBC ROM', '*.gbc')] }
     filename = askopenfilename(**dialog_args)
     if filename:
-      filename = filename.replace('/', '\\')
+      filename = filename.replace('/', os.path.sep)
       self.input_entry.delete(0, tk.END)
       self.input_entry.insert(0, filename)
 
@@ -137,6 +152,10 @@ class LadxrUi(tk.Frame):
       elif opt['type'] == 'choice':
         argval = next(filter(lambda c: c['text'] == val, opt['choices']))['value']
         args.append('--' + opt['arg'] + '=' + argval)
+      elif opt['type'] == 'gfx':
+        argval = next(filter(lambda c: c['text'] == val, opt['choices']))['value']
+        if argval != 'default':
+          args.append('--' + opt['arg'] + '=' + argval)
 
     args.append(self.input_entry.get())
     ladxr.main(args)

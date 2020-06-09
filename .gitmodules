@@ -1,3 +1,6 @@
 [submodule "LADXR"]
 	path = LADXR
 	url = https://github.com/daid/LADXR
+[submodule "Z4Randomizer"]
+	path = Z4Randomizer
+	url = https://github.com/CrystalSaver/Z4Randomizer
