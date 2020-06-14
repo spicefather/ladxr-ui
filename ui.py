@@ -27,6 +27,7 @@ class LadxrUi(tk.Frame):
       { 'text': 'Randomize Heart Pieces', 'arg': 'heartpiece', 'type': 'boolean', 'default': True },
       { 'text': 'Randomize Seashells', 'arg': 'seashells', 'type': 'boolean', 'default': True },
       { 'text': 'Keysanity', 'arg': 'keysanity', 'type': 'boolean', 'default': False },
+      { 'text': 'Randomize Heart Containers', 'arg': 'heartcontainers', 'type': 'boolean', 'default': False },
       { 'text': 'Add items to owl statues', 'arg': 'owlstatues', 'type': 'choice', 'choices': [
         { 'text': 'Never', 'value': 'none' },
         { 'text': 'Dungeons', 'value': 'dungeon' },
