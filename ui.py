@@ -21,7 +21,6 @@ class LadxrUi(tk.Frame):
     self.pack()
 
     self.ladxr_opts = [
-      # { 'text': 'Output File', 'arg': 'output', 'type': 'file_out', 'default': '' },
       { 'text': 'Dump Spoilers', 'arg': 'dump', 'type': 'boolean', 'default': False },
       { 'text': 'Seed', 'arg': 'seed', 'type': 'string', 'default': '' },
       { 'text': 'Randomize Heart Pieces', 'arg': 'heartpiece', 'type': 'boolean', 'default': True },
@@ -36,7 +35,16 @@ class LadxrUi(tk.Frame):
         { 'text': 'Dungeons and Overworld', 'value': 'both' }
       ], 'default': 'none' },
       { 'text': 'Dungeon Shuffle', 'arg': 'dungeonshuffle', 'type': 'boolean', 'default': False },
-      { 'text': 'Shuffle Boomerang', 'arg': 'boomerangtrade', 'type': 'boolean', 'default': True },
+      { 'text': 'Boomerang Mode', 'arg': 'boomerang', 'type': 'choice', 'choices': [
+        { 'text': 'Normal (require lens)', 'value': 'default' },
+        { 'text': 'Trade', 'value': 'trade' },
+        { 'text': 'Gift', 'value': 'gift' }
+      ], 'default': 'default' },
+      { 'text': 'Bow Wow Mode', 'arg': 'bowwow', 'type': 'choice', 'choices': [
+        { 'text': 'Disabled', 'value': 'normal' },
+        { 'text': 'Enabled', 'value': 'always' },
+        { 'text': 'Swordless', 'value': 'swordless' },
+      ], 'default': 'normal' },
       { 'text': 'Instruments Required', 'arg': 'goal', 'type': 'choice', 'choices': [
         { 'text': '8', 'value': '8' },
         { 'text': '7', 'value': '7' },
