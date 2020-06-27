@@ -45,6 +45,11 @@ class LadxrUi(tk.Frame):
         { 'text': 'Enabled', 'value': 'always' },
         { 'text': 'Swordless', 'value': 'swordless' },
       ], 'default': 'normal' },
+      { 'text': 'Logic', 'arg': 'logic', 'type': 'choice', 'choices': [
+        { 'text': 'Normal', 'value': 'normal' },
+        { 'text': 'Hard', 'value': 'hard' },
+        { 'text': 'Glitched', 'value': 'glitched' }
+      ], 'default': 'normal' },
       { 'text': 'Instruments Required', 'arg': 'goal', 'type': 'choice', 'choices': [
         { 'text': '8', 'value': '8' },
         { 'text': '7', 'value': '7' },
