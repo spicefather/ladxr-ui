@@ -21,6 +21,7 @@ class LadxrUi(tk.Frame):
     self.pack()
 
     self.ladxr_opts = [
+      { 'text': 'Race Mode', 'arg': 'race', 'type': 'boolean', 'default': True },
       { 'text': 'Dump Spoilers', 'arg': 'dump', 'type': 'boolean', 'default': False },
       { 'text': 'Seed', 'arg': 'seed', 'type': 'string', 'default': '' },
       { 'text': 'Randomize Heart Pieces', 'arg': 'heartpiece', 'type': 'boolean', 'default': True },
@@ -48,7 +49,8 @@ class LadxrUi(tk.Frame):
       { 'text': 'Logic', 'arg': 'logic', 'type': 'choice', 'choices': [
         { 'text': 'Normal', 'value': 'normal' },
         { 'text': 'Hard', 'value': 'hard' },
-        { 'text': 'Glitched', 'value': 'glitched' }
+        { 'text': 'Glitched', 'value': 'glitched' },
+        { 'text': 'Hell', 'value': 'hell' }
       ], 'default': 'normal' },
       { 'text': 'Instruments Required', 'arg': 'goal', 'type': 'choice', 'choices': [
         { 'text': '8', 'value': '8' },
@@ -62,7 +64,13 @@ class LadxrUi(tk.Frame):
         { 'text': '0', 'value': '0' },
         { 'text': 'Egg Open', 'value': '-1' },
         { 'text': 'Random', 'value': 'random' }
-      ], 'default': '8'},
+      ], 'default': '8' },
+      { 'text': 'Item Pool', 'arg': 'pool', 'type': 'choice', 'choices': [
+        { 'text': 'Normal', 'value': 'normal' },
+        { 'text': 'Casual', 'value': 'casual' },
+        { 'text': 'Path of Pain', 'value': 'pain' },
+        { 'text': 'More Keys', 'value': 'keyup' }
+      ], 'default': 'normal' },
       { 'text': 'Health Mode', 'arg': 'hpmode', 'type': 'choice', 'choices': [
         { 'text': 'Normal', 'value': 'default' },
         { 'text': 'Inverted', 'value': 'inverted' },
@@ -90,7 +98,7 @@ class LadxrUi(tk.Frame):
       ], 'default': 'slow' },
       # This default differs from web because speedbois will want Flock clips
       { 'text': 'Nag Messages', 'arg': 'nag-messages', 'type': 'boolean', 'default': True },
-      { 'text': 'Sprites', 'arg': 'gfxmod', 'type': 'gfx', 'choices': [{ 'text': 'Default', 'value': 'default' }], 'default': 'default' }
+      { 'text': 'Sprites', 'arg': 'gfxmod', 'type': 'gfx', 'choices': [{ 'text': 'Default', 'value': 'default' }], 'default': 'default' },
       # TODO: Not sure what values are used, will check with Daid before adding
       # { 'text': 'Tunic Palette', 'arg': 'linkspalette', 'type': 'choice' }
     ]
