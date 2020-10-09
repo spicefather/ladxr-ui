@@ -22,7 +22,12 @@ class LadxrUi(tk.Frame):
 
     self.ladxr_opts = [
       { 'text': 'Race Mode', 'arg': 'race', 'type': 'boolean', 'default': True },
-      { 'text': 'Dump Spoilers', 'arg': 'dump', 'type': 'boolean', 'default': False },
+      { 'text': 'Spoiler Format', 'arg': 'spoilerformat', 'type': 'choice', 'choices': [
+        { 'text': 'None', 'value': 'none' },
+        { 'text': 'Console', 'value': 'console' },
+        { 'text': 'Text', 'value': 'text' },
+        { 'text': 'JSON', 'value': 'json' }
+      ], 'default': 'none' },
       { 'text': 'Seed', 'arg': 'seed', 'type': 'string', 'default': '' },
       { 'text': 'Randomize Heart Pieces', 'arg': 'heartpiece', 'type': 'boolean', 'default': True },
       { 'text': 'Randomize Seashells', 'arg': 'seashells', 'type': 'boolean', 'default': True },
@@ -36,6 +41,7 @@ class LadxrUi(tk.Frame):
         { 'text': 'Dungeons and Overworld', 'value': 'both' }
       ], 'default': 'none' },
       { 'text': 'Dungeon Shuffle', 'arg': 'dungeonshuffle', 'type': 'boolean', 'default': False },
+      { 'text': 'Boss Shuffle', 'arg': 'bossshuffle', 'type': 'boolean', 'default': False},
       { 'text': 'Boomerang Mode', 'arg': 'boomerang', 'type': 'choice', 'choices': [
         { 'text': 'Normal (require lens)', 'value': 'default' },
         { 'text': 'Trade', 'value': 'trade' },
@@ -76,6 +82,7 @@ class LadxrUi(tk.Frame):
         { 'text': 'Inverted', 'value': 'inverted' },
         { 'text': 'Start with 1 heart', 'value': '1' }
       ], 'default': 'default' },
+      { 'text': 'Oracles Mode', 'arg': 'hard-mode', 'type': 'boolean', 'default': False},
       { 'text': 'Stealing', 'arg': 'steal', 'type': 'choice', 'choices': [
         { 'text': 'Always', 'value': 'always' },
         { 'text': 'Never', 'value': 'never' },
@@ -99,6 +106,7 @@ class LadxrUi(tk.Frame):
       # This default differs from web because speedbois will want Flock clips
       { 'text': 'Nag Messages', 'arg': 'nag-messages', 'type': 'boolean', 'default': True },
       { 'text': 'Sprites', 'arg': 'gfxmod', 'type': 'gfx', 'choices': [{ 'text': 'Default', 'value': 'default' }], 'default': 'default' },
+      
       # TODO: Not sure what values are used, will check with Daid before adding
       # { 'text': 'Tunic Palette', 'arg': 'linkspalette', 'type': 'choice' }
     ]
