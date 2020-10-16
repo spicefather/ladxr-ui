@@ -22,6 +22,7 @@ class LadxrUi(tk.Frame):
 
     self.ladxr_opts = [
       { 'text': 'Race Mode', 'arg': 'race', 'type': 'boolean', 'default': True },
+      { 'text': 'Multiworld', 'arg': 'multiworld', 'type': 'multi', 'default': 1 },
       { 'text': 'Spoiler Format', 'arg': 'spoilerformat', 'type': 'choice', 'choices': [
         { 'text': 'None', 'value': 'none' },
         { 'text': 'Console', 'value': 'console' },
@@ -142,6 +143,12 @@ class LadxrUi(tk.Frame):
         opt['widget'] = tk.Entry(self, textvariable=var)
         opt['widget'].var = var
         opt['widget'].grid(row=row, column=1, columnspan=2, sticky=tk.E+tk.W, padx='2m')
+      elif opt['type'] == 'multi':
+        var = tk.StringVar(name=opt['arg'])
+        var.set(opt['default'])
+        opt['widget'] = ttk.Spinbox(self, textvariable=var, from_=1, to=8, increment=1)
+        opt['widget'].var = var
+        opt['widget'].grid(row=row, column=1, columnspan=2, sticky=tk.E+tk.W, padx='2m')
       elif opt['type'] == 'choice':
         var = tk.StringVar(name=opt['arg'])
         var.set([c['text'] for c in opt['choices'] if c['value'] == opt['default']][0])
@@ -180,6 +187,10 @@ class LadxrUi(tk.Frame):
       elif opt['type'] == 'string':
         if val:
           args.append('--' + opt['arg'] + '=' + val)
+      elif opt['type'] == 'multi':
+        ival = int(val)
+        if ival > 1:
+          args.append('--' + opt['arg'] + '=' + str(ival))
       elif opt['type'] == 'choice':
         argval = next(filter(lambda c: c['text'] == val, opt['choices']))['value']
         args.append('--' + opt['arg'] + '=' + argval)
